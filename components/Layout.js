@@ -22,7 +22,7 @@ function Layout({ title, children }) {
             </div>
           </nav>
         </header>
-        <main className=" border  border-blue-500 container m-auto mt-4 px-4">
+        <main className="container m-auto mt-4 px-4">
           {children}
         </main>
         <footer className="flex h-10 justify-center items-center shadow-inner">footer</footer>
