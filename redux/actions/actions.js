@@ -21,7 +21,7 @@ export const loadInitalDataAction = () => {
 
 export const loadTodosAction = (data) => {
   return {
-    type: "load-Todos-Data",
+    type: "add-to-Cart",
     payload: data,
   };
 };

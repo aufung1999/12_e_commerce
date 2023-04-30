@@ -1,8 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
 import React from "react";
+import { useSelector } from "react-redux";
 
 function Layout({ title, children }) {
+  const CartItems = useSelector((state) => state.CartItems);
+
   return (
     <>
       <Head>
@@ -17,15 +20,22 @@ function Layout({ title, children }) {
               Amazona
             </Link>
             <div className=" border border-red-500 w-28 flex justify-evenly">
-              <Link href="/cart">Cart</Link>
+              <Link href="/cart">
+                Cart
+                {CartItems.length > 0 && (
+                  <span className="ml-1 rounded-full bg-red-600 px-2 py-1 text-xs font-bold text-white">
+                    {CartItems.reduce((a, c) => a + c.quantity, 0)}
+                  </span>
+                )}
+              </Link>
               <Link href="/login">Login</Link>
             </div>
           </nav>
         </header>
-        <main className="container m-auto mt-4 px-4">
-          {children}
-        </main>
-        <footer className="flex h-10 justify-center items-center shadow-inner">footer</footer>
+        <main className="container m-auto mt-4 px-4">{children}</main>
+        <footer className="flex h-10 justify-center items-center shadow-inner">
+          footer
+        </footer>
       </div>
     </>
   );
