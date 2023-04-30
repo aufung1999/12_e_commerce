@@ -12,6 +12,14 @@ export default function CartScreen() {
   const dispatch = useDispatch();
   const CartItems = useSelector((state) => state.CartItems);
 
+  const updateCartHandler = (item, qty) => {
+    const quantity = Number(qty)
+    dispatch({
+      type: "update-Quantity",
+      payload: { ...item, quantity: quantity },
+    });
+  };
+
   const removeItemHandler = (item) => {
     dispatch({ type: "delete-from-Cart", payload: item });
   };

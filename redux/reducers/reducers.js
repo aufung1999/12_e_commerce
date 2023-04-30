@@ -22,6 +22,18 @@ const CartItemsReducer = (state = [], action) => {
         (item) => item.slug !== deleteItem.slug
       );
       return removedItems;
+    case "update-Quantity":
+      const updateItem = action.payload;
+      const existItem_ = state.find((item) => item.slug === updateItem.slug);
+      const updatedItem = existItem_
+        ? state.map((item) =>
+            item.name === existItem_.name
+              ? { ...item, quantity: updateItem.quantity }
+              : item
+          )
+        : [...state, newItem];
+      return updatedItem;
+
     default:
       return state;
   }
