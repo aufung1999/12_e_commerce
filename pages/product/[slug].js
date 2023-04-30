@@ -21,7 +21,6 @@ export default function ProductScreen() {
   }
 
   const addToCart = () => {
-    console.log('quantity: ' + productInCart?.quantity)
     if (product.countInStock < productInCart?.quantity + 1) {
       alert("sorry out of stock");
       return;

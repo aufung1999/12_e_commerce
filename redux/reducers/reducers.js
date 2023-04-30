@@ -16,6 +16,12 @@ const CartItemsReducer = (state = [], action) => {
         : [...state, newItem];
       // Cookies.set("cart", JSON.stringify({ ...state.cart, cartItems }));
       return cartItems;
+    case "delete-from-Cart":
+      const deleteItem = action.payload;
+      const removedItems = state.filter(
+        (item) => item.slug !== deleteItem.slug
+      );
+      return removedItems;
     default:
       return state;
   }

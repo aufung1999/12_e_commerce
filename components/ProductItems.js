@@ -1,7 +1,21 @@
 import Link from "next/link";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 
 function ProductItems({ product }) {
+  const dispatch = useDispatch();
+  const productInCart = useSelector((state) =>
+    state.CartItems.find((each) => each.slug === product.slug)
+  );
+
+  const addToCart = () => {
+    if (product.countInStock < productInCart?.quantity + 1) {
+      alert("sorry out of stock");
+      return;
+    }
+    dispatch({ type: "add-to-Cart", payload: { ...product, quantity: 1 } });
+  };
+  
   return (
     <div className="card">
       <Link href={`/product/${product.slug}`}>
@@ -18,7 +32,7 @@ function ProductItems({ product }) {
         </Link>
         <p className="mb-2">{product.brand}</p>
         <p className="mb-2">${product.price}</p>
-        <button className=" primary-button" type="button">
+        <button onClick={addToCart} className=" primary-button" type="button">
           Add to cart
         </button>
       </div>
