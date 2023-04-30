@@ -5,8 +5,13 @@ import { useDispatch, useSelector } from "react-redux";
 function ProductItems({ product }) {
   const dispatch = useDispatch();
   const productInCart = useSelector((state) =>
-    state.CartItems.find((each) => each.slug === product.slug)
+    state?.CartItems?.find((each) => each.slug === product.slug)
   );
+  // const productInCart = useSelector((state) =>
+  //   state?.CartItems
+  // );
+
+  console.log('productInCart: ' + productInCart)
 
   const addToCart = () => {
     if (product.countInStock < productInCart?.quantity + 1) {
@@ -15,7 +20,7 @@ function ProductItems({ product }) {
     }
     dispatch({ type: "add-to-Cart", payload: { ...product, quantity: 1 } });
   };
-  
+
   return (
     <div className="card">
       <Link href={`/product/${product.slug}`}>

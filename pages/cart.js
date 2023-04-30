@@ -1,19 +1,32 @@
 import Layout from "@/components/Layout";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import XCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
 import { useRouter } from "next/router";
 
-export default function CartScreen() {
+import dynamic from "next/dynamic";
+
+function CartScreen() {
   const route = useRouter();
 
   const dispatch = useDispatch();
   const CartItems = useSelector((state) => state.CartItems);
 
+  console.log(CartItems);
+  const [cartItemsCount, setCartItemsCount] = useState(0);
+  const [cartItemsCount_Price, setCartItemsCount_Price] = useState(0);
+
+  useEffect(() => {
+    setCartItemsCount(CartItems.reduce((a, c) => a + c.quantity, 0));
+    setCartItemsCount_Price(
+      CartItems.reduce((a, c) => a + c.quantity * c.price, 0)
+    );
+  }, [CartItems]);
+
   const updateCartHandler = (item, qty) => {
-    const quantity = Number(qty)
+    const quantity = Number(qty);
     dispatch({
       type: "update-Quantity",
       payload: { ...item, quantity: quantity },
@@ -93,8 +106,7 @@ export default function CartScreen() {
             <ul>
               <li>
                 <div className="pb-3 text-xl">
-                  Subtotal {CartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
-                  {CartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                  Subtotal {cartItemsCount} {cartItemsCount_Price}
                 </div>
               </li>
               <li>
@@ -112,3 +124,5 @@ export default function CartScreen() {
     </Layout>
   );
 }
+
+export default dynamic(() => Promise.resolve(CartScreen, { ssr: false }));
