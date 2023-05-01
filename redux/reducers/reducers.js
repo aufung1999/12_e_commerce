@@ -68,11 +68,31 @@ const ShippingAddressReducer = (
       return state;
   }
 };
+//######################################################################################################
+const PaymentMethodReducer = (
+  state = Cookies.get("payment")
+    ? JSON.parse(Cookies.get("payment"))
+    : "",
+  action
+) => {
+  switch (action.type) {
+    case "add-Payment-Method": {
+      const paymentMethod = { ...state, ...action.payload };
+      Cookies.set("payment", JSON.stringify(paymentMethod));
+      return paymentMethod;
+    }
+
+    default:
+      return state;
+  }
+};
 //############################################################################################################################################################
 const reducers = combineReducers({
   CartItems: CartItemsReducer,
 
-  ShippingAddress: ShippingAddressReducer,
+  shippingAddress: ShippingAddressReducer,
+
+  paymentMethod:PaymentMethodReducer,
 });
 
 export default reducers;

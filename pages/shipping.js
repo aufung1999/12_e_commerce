@@ -10,7 +10,7 @@ export default function ShippingScreen() {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const shippingAddress = useSelector((state) => state.ShippingAddress);
+  const shippingAddress = useSelector((state) => state.shippingAddress);
 
   useEffect(() => {
     setValue("fullName", shippingAddress.fullName);
