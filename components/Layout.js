@@ -1,9 +1,14 @@
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function Layout({ title, children }) {
+  const { status, data: session } = useSession();
+
   const CartItems = useSelector((state) => state.CartItems);
   const [cartItemsCount, setCartItemsCount] = useState(0);
 
@@ -17,6 +22,9 @@ function Layout({ title, children }) {
         <meta name="description" content="Ecommerce Website" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
+
+      <ToastContainer position="bottom-center" limit={1} />
+
       <div className=" flex min-h-screen flex-col justify-between">
         <header className=" border border-red-500">
           <nav className=" flex h-12 justify-between items-center px-4 shadow-md">
@@ -32,7 +40,13 @@ function Layout({ title, children }) {
                   </span>
                 )}
               </Link>
-              <Link href="/login">Login</Link>
+              {status === "loading" ? (
+                "Loading"
+              ) : session?.user ? (
+                session.user.name
+              ) : (
+                <Link href="/login">Login</Link>
+              )}
             </div>
           </nav>
         </header>
