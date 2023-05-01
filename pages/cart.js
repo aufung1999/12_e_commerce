@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 
 function CartScreen() {
-  const route = useRouter();
+  const router = useRouter();
 
   const dispatch = useDispatch();
   const CartItems = useSelector((state) => state.CartItems);
