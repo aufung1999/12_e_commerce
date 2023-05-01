@@ -6,22 +6,26 @@ import { useRouter } from "next/router";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-export default function ProductScreen() {
-  const { query } = useRouter();
-  const { slug } = query;
-  const product = data.products.find((x) => x.slug === slug);
+import axios from "axios";
+import { toast } from "react-toastify";
+import Product from "@/models/product";
+import db from "@/utils/db";
+
+export default function ProductScreen(props) {
+  const { product } = props;
+
   const dispatch = useDispatch();
 
+  if (!product) {
+    return <Layout title="Produt Not Found">Produt Not Found</Layout>;
+  }
   const productInCart = useSelector((state) =>
     state.CartItems.find((each) => each.slug === product.slug)
   );
 
-  if (!product) {
-    return <div>Product Not Found</div>;
-  }
-
-  const addToCart = () => {
-    if (product.countInStock < productInCart?.quantity + 1) {
+  const addToCart = async () => {
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < productInCart?.quantity + 1) {
       alert("sorry out of stock");
       return;
     }
@@ -76,4 +80,18 @@ export default function ProductScreen() {
       </div>
     </Layout>
   );
+}
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  const { slug } = params;
+
+  await db.connect();
+  const product = await Product.findOne({ slug }).lean();
+  await db.disconnect();
+  return {
+    props: {
+      product: product ? db.convertDocToObj(product) : null,
+    },
+  };
 }

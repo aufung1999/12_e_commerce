@@ -2,7 +2,9 @@ import Link from "next/link";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-function ProductItems({ product }) {
+
+
+function ProductItem({ product, addToCartHandler }) {
   const dispatch = useDispatch();
   const productInCart = useSelector((state) =>
     state?.CartItems?.find((each) => each.slug === product.slug)
@@ -11,7 +13,7 @@ function ProductItems({ product }) {
   //   state?.CartItems
   // );
 
-  console.log('productInCart: ' + productInCart)
+  // console.log("productInCart: " + productInCart);
 
   const addToCart = () => {
     if (product.countInStock < productInCart?.quantity + 1) {
@@ -45,4 +47,4 @@ function ProductItems({ product }) {
   );
 }
 
-export default ProductItems;
+export default ProductItem;
