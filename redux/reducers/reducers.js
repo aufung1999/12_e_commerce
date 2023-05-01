@@ -64,22 +64,28 @@ const ShippingAddressReducer = (
       return shippingAddtess;
     }
 
+    case "reset-shipping_address": {
+      return {};
+    }
+
     default:
       return state;
   }
 };
 //######################################################################################################
 const PaymentMethodReducer = (
-  state = Cookies.get("payment")
-    ? JSON.parse(Cookies.get("payment"))
-    : "",
+  state = Cookies.get("payment") ? JSON.parse(Cookies.get("payment")) : "",
   action
 ) => {
   switch (action.type) {
     case "add-Payment-Method": {
-      const paymentMethod = { ...state, ...action.payload };
+      const paymentMethod = action.payload;
       Cookies.set("payment", JSON.stringify(paymentMethod));
       return paymentMethod;
+    }
+
+    case "reset-payment": {
+      return "";
     }
 
     default:
@@ -92,7 +98,7 @@ const reducers = combineReducers({
 
   shippingAddress: ShippingAddressReducer,
 
-  paymentMethod:PaymentMethodReducer,
+  paymentMethod: PaymentMethodReducer,
 });
 
 export default reducers;
