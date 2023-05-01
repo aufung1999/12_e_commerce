@@ -42,6 +42,9 @@ const CartItemsReducer = (
       Cookies.set("cart", JSON.stringify(cartItems));
       return cartItems;
     }
+    case "reset-Cart": {
+      return [];
+    }
 
     default:
       return state;
