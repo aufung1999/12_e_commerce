@@ -5,6 +5,7 @@ import reducers from "@/redux/reducers/reducers";
 import { Provider } from "react-redux";
 import { SessionProvider, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import { PayPalScriptProvider } from "@paypal/react-paypal-js";
 
 const store = configureStore({ reducer: reducers });
 
@@ -15,13 +16,15 @@ export default function App({
   return (
     <SessionProvider session={session}>
       <Provider store={store}>
-        {Component.auth ? (
-          <Auth>
+        <PayPalScriptProvider deferLoading={true} >
+          {Component.auth ? (
+            <Auth>
+              <Component {...pageProps} />
+            </Auth>
+          ) : (
             <Component {...pageProps} />
-          </Auth>
-        ) : (
-          <Component {...pageProps} />
-        )}
+          )}
+        </PayPalScriptProvider>
       </Provider>
     </SessionProvider>
   );
