@@ -58,7 +58,7 @@ export default function PlaceOrderScreen() {
       });
       setLoading(false);
 
-      console.log('data: ' + data)
+      console.log("data: " + data);
       dispatch({ type: "reset-Cart" });
       dispatch({ type: "reset-shipping_address" });
       dispatch({ type: "reset-payment" });
@@ -67,11 +67,10 @@ export default function PlaceOrderScreen() {
       Cookies.remove("shipping_address");
       Cookies.remove("payment");
 
-
       router.push(`/order/${data._id}`);
     } catch (err) {
       setLoading(false);
-      console.log('its here')
+      console.log("its here");
       toast.error(getError(err));
     }
   };
@@ -121,16 +120,16 @@ export default function PlaceOrderScreen() {
                     <tr key={item._id} className="border-b">
                       <td>
                         <Link href={`/product/${item.slug}`}>
-                          {/* <a className="flex items-center"> */}
-                          <Image
-                            src={item.image}
-                            alt={item.name}
-                            width={50}
-                            height={50}
-                          ></Image>
-                          &nbsp;
-                          {item.name}
-                          {/* </a> */}
+                          <div className="flex items-center">
+                            <Image
+                              src={item.image}
+                              alt={item.name}
+                              width={50}
+                              height={50}
+                            ></Image>
+                            &nbsp;
+                            {item.name}
+                          </div>
                         </Link>
                       </td>
                       <td className=" p-5 text-right">{item.quantity}</td>
