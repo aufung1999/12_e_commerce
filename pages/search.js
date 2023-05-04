@@ -8,6 +8,7 @@ import Layout from "../components/Layout";
 import ProductItem from "../components/ProductItem";
 import Product from "../models/Product";
 import db from "../utils/db";
+import { useSelector } from "react-redux";
 
 const PAGE_SIZE = 2;
 
@@ -89,18 +90,18 @@ export default function Search(props) {
     filterSearch({ rating: e.target.value });
   };
 
-//   const { state, dispatch } = useContext(Store);
-
+  //   const { state, dispatch } = useContext(Store);
+  const CartItems = useSelector((state) => state?.CartItems);
 
   const addToCartHandler = async (product) => {
-    const existItem = state.cart.cartItems.find((x) => x._id === product._id);
-    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const existItem = CartItems.find((x) => x._id === product._id);
+    // const quantity = existItem ? existItem.quantity + 1 : 1;
     const { data } = await axios.get(`/api/products/${product._id}`);
-    if (data.countInStock < quantity) {
-      toast.error("Sorry. Product is out of stock");
-      return;
-    }
-    dispatch({ type: "CART_ADD_ITEM", payload: { ...product, quantity } });
+    if (data.countInStock < existItem?.quantity + 1) {
+        alert("sorry out of stock");
+        return;
+      }
+    dispatch({ type: "add-to-Cart", payload: { ...product, quantity: 1 } });
     router.push("/cart");
   };
   return (
