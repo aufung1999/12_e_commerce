@@ -6,7 +6,7 @@ import Layout from "@/components/Layout";
 
 import ProductItem from "@/components/ProductItem";
 
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import db from "@/utils/db";
 import { useSelector } from "react-redux";
 

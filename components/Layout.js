@@ -11,7 +11,7 @@ import DropdownLink from "./DropdownLink";
 import Cookies from "js-cookie";
 
 import { useRouter } from "next/router";
-import { SearchIcon } from "@heroicons/react/outline";
+// import { SearchIcon } from "@heroicons/react/outline";
 
 function Layout({ title, children }) {
   const dispatch = useDispatch();
@@ -71,7 +71,7 @@ function Layout({ title, children }) {
                 type="submit"
                 id="button-addon2"
               >
-                <SearchIcon className="h-5 w-5"></SearchIcon>
+                <div className="h-5 w-5">hi</div>
               </button>
             </form>
 
