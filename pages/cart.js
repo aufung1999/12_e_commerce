@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import XCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
+// import XCircleIcon from "@heroicons/react/24/outline/XCircleIcon";
 import { useRouter } from "next/router";
 
 import dynamic from "next/dynamic";
