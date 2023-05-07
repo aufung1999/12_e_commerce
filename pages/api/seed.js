@@ -1,6 +1,6 @@
 // import Product from '../../models/Product';
 import User from "@/models/User";
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import data from "@/utils/data";
 import db from "@/utils/db";
 

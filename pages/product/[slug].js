@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import axios from "axios";
 import { toast } from "react-toastify";
-import Product from "@/models/product";
+import Product from "@/models/Product";
 import db from "@/utils/db";
 
 export default function ProductScreen(props) {
