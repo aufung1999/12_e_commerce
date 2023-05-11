@@ -178,7 +178,7 @@ export default function Search(props) {
               price !== "all" ? (
                 <button onClick={() => router.push("/search")}>
                   {/* <XCircleIcon className="h-5 w-5" /> */}
-                  <div>hi</div>
+                  <div>X</div>
                 </button>
               ) : null}
             </div>

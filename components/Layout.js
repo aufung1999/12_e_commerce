@@ -11,7 +11,7 @@ import DropdownLink from "./DropdownLink";
 import Cookies from "js-cookie";
 
 import { useRouter } from "next/router";
-// import { SearchIcon } from "@heroicons/react/outline";
+import { SearchIcon } from "@heroicons/react/solid";
 
 function Layout({ title, children }) {
   const dispatch = useDispatch();
@@ -50,9 +50,9 @@ function Layout({ title, children }) {
       <ToastContainer position="bottom-center" limit={1} />
 
       <div className=" flex min-h-screen flex-col justify-between">
-        <header className=" border border-red-500">
+        <header className=" border border-red-300 bg-sky-950">
           <nav className=" flex h-12 justify-between items-center px-4 shadow-md">
-            <Link href="/" className=" text-xl font-bold">
+            <Link href="/" className=" text-xl font-bold text-slate-50">
               Amazona
             </Link>
 
@@ -71,11 +71,13 @@ function Layout({ title, children }) {
                 type="submit"
                 id="button-addon2"
               >
-                <div className="h-5 w-5">hi</div>
+                <div className="h-5 w-5">
+                  <SearchIcon className="h-5 w-5" />
+                </div>
               </button>
             </form>
 
-            <div className=" border border-red-500 w-28 flex justify-evenly">
+            <div className=" w-28 flex justify-evenly text-slate-50">
               <Link href="/cart">
                 Cart
                 {cartItemsCount > 0 && (
